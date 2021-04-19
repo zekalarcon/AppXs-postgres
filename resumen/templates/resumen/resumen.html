@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load materializecss %}
+{% block content %}
+
+{% if messages %}
+    {% for message in messages %}
+        
+            <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div> 
+                  
+    {% endfor %}
+{% endif %}
+
+<div class="row" id='form_resumen'>
+    <div class="col-md-4">
+        <form action="." method="POST" autocomplete="off">
+            {% csrf_token %}
+
+            <div>
+            {{ resumen_form.fecha_inicio|materializecss:'icon=today' }}
+            </div>
+            <div>
+                {{ resumen_form.fecha_fin|materializecss:'icon=today' }}
+                </div>
+
+            <button class="btn" type="submit" id='boton_resumen'>
+                Mostrar Ingresos
+            </button>
+        </form>
+    </div>
+    
+    <div class="col-md-4">
+    <table class="responsive-table-sm">
+        <thead>
+            <tr class="tabla_resumen_head">
+                <th>Efectivo</th>
+                <th>Tarjeta</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        {% if total_efectivo%}
+        <tbody>
+            <tr class="tabla_resumen_body">
+                <td>${{ total_efectivo }}</td>
+                <td>${{ total_tarjeta }}</td>
+                <td>${{ total }}</td>
+            </tr>
+        </tbody>
+        {% endif %}
+    </table>
+    </div>
+</div>    
+
+{% endblock %}

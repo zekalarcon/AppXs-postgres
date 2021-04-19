@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load materializecss %}
+{% block content %}
+
+{% if messages %}
+    {% for message in messages %}
+        
+            <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div> 
+                  
+    {% endfor %}
+{% endif %}
+
+<div class="row" id='forms_trabajos'>
+    <div class="col-md-5" id="form_operacion">
+        <form action="." method="POST" id='trabajos_form' autocomplete="off">
+            {% csrf_token %}
+            
+            <div>
+                {{ trabajos.trabajo|materializecss:'icon=work' }}
+            </div>
+            <div>
+                {{ trabajos.nombre|materializecss:'icon=face' }}
+            </div>
+            <div>
+                {{ trabajos.telefono|materializecss:'icon=phone_android' }}
+            </div>
+            <div>
+                {{ trabajos.precio|materializecss:'icon=monetization_on' }}
+            </div>
+            <div id="empleado">
+                {{ trabajos.empleado|materializecss:'icon=people' }}
+            </div>
+            <div>
+                {{ trabajos.tarjeta|materializecss:'icon=payment' }}
+            </div>
+            
+            
+            <button class="btn" type="submit" id='boton_trabajos'>
+                Agregar trabajo
+            </button>
+        </form>
+    </div>
+    <div class="col-md-5" id="form_producto">
+        <form action="." method="POST" id='trabajos2_form' autocomplete="off">
+            {% csrf_token %}
+            <div>
+            {{ stock.producto|materializecss:'icon=local_mall' }}
+            </div>
+            <div>
+                {{ stock.cantidad|materializecss:'icon=add_to_photos' }}
+            </div>
+            
+            <button class="btn" type="submit">
+                Agregar producto
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}
+

@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% load materializecss %}
+{% block content %}
+
+{% if messages %}
+    {% for message in messages %}
+        
+		<div class="alert alert-{{ message.tags }}">
+			{{ message }}
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+		</div> 
+                  
+    {% endfor %}
+{% endif %}
+
+<div class="row" id='form_cliente'>
+	<div class="col-md-7">
+		<form action="." method="POST" autocomplete="off">
+			{% csrf_token %}
+
+			<div>
+				{{ cliente.nombre|materializecss:'icon=face' }}
+			</div>
+			
+			<button class="btn" type="submit">
+				Buscar cliente
+			</button>
+		</form>
+	</div>
+</div>
+{% if trabajos %}
+
+<table class="responsive-table-sm">
+    <thead>
+		<tr>
+			<th></th>
+			<th>Fecha</th>
+			<th>Trabajo</th>
+			<th>Nombre</th>
+			<th>Telefono</th>
+			<th>Precio</th>
+			<th>Empleado</th>
+			<th>Producto</th>
+			<th>Cantidad</th>	
+		</tr>
+    </thead>
+
+    <tbody>
+        {% for data in trabajos %}
+      	<tr>
+
+			{% if data.id in dic %} 
+
+				{% for item in productos %}
+					{% if item.0 == data.id %}
+						
+						<td rowspan="{{ item.1|length|add:1  }}">          
+							<a href="{% url 'delete_cliente' data.id  %}"><img src="/static/images/trash.png" id='trash_icon'></a>      
+						</td>
+						<td rowspan="{{ item.1|length|add:1  }}">{{ data.fecha }}</td>
+						<td rowspan="{{ item.1|length|add:1  }}">{{ data.trabajo }}</td>
+						<td rowspan="{{ item.1|length|add:1  }}">{{ data.nombre }}</td>
+						<td rowspan="{{ item.1|length|add:1  }}">{{ data.telefono }}</td>
+						<td rowspan="{{ item.1|length|add:1  }}">{{ data.precio }}</td>
+						<td rowspan="{{ item.1|length|add:1  }}">{{ data.empleado }}</td>
+						
+						{% for producto, cantidad in item.1.items %}
+							
+							<tr>
+							<td>{{producto}}</td>
+							<td>{{cantidad}}</td>
+							</tr>
+							
+						{% endfor %}
+
+					{% endif%}
+				{% endfor%}
+
+			{% else%}	
+
+				<td>          
+					<a href="{% url 'delete_cliente' data.id %}"><img src="/static/images/trash.png" id='trash_icon'></a>      
+				</td>
+				<td>{{ data.fecha }}</td>
+				<td>{{ data.trabajo }}</td>
+				<td>{{ data.nombre }}</td>
+				<td>{{ data.telefono }}</td>
+				<td>{{ data.precio }}</td>
+				<td>{{ data.empleado }}</td>
+				
+			{% endif %}
+
+      	</tr>
+	  	{% endfor %}  
+    </tbody>
+</table>
+
+{% endif %}
+{% endblock %}

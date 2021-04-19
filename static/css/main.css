@@ -1,0 +1,303 @@
+/*   Main   */
+
+*{
+    font-family: 'Righteous', cursive;
+}
+
+input[type="text"]
+{
+    color: white;
+    font-family: 'Righteous', cursive;
+}
+
+.input-field label {
+    color: rgb(255, 255, 255);
+}
+
+body {
+    background:url("/static/images/fondo_principal.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment:fixed;
+
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color:rgb(255, 255, 255);
+    opacity: 1; /* Firefox */
+    font-family: 'Righteous', cursive;
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: rgb(255, 255, 255);
+}
+  
+::-ms-input-placeholder { /* Microsoft Edge */
+    color: rgb(255, 255, 255);
+}
+
+
+/*   Navbar   */
+
+
+#logo{
+    height: 70%;
+    width: 70%;
+}
+
+#user{
+    text-transform: uppercase;
+    margin-top: 25px;  
+    color: orange;
+}
+
+#logout_icono{
+    height: 20px;
+    width: 20px;
+}
+
+#menu_icono{
+    width: 30px;
+    height: 40px;  
+}
+
+.navbar-toggler:focus,
+.navbar-toggler:active,
+.navbar-toggler-icon:focus {
+    outline: none;
+    box-shadow: none;
+    background-color: transparent;
+}
+
+.navbar {
+    background-color: rgba(124, 58, 133, 0.753);
+    opacity: 0.7;
+    z-index: 3;
+}
+
+.topnav-right{
+    float: right;
+}
+
+.navbar-nav li a{
+    color: rgb(255, 255, 255);
+    font-size: 17px;
+}
+
+.navbar-nav li a:hover {
+    color: orange;
+    z-index: 1;
+}
+   
+@media only screen and (max-width: 1000px),
+(min-device-width: 700px) and (max-device-width: 1024px){
+    .navbar-collapse{
+        background-color:rgb(0, 0, 0);
+    }
+    .navbar-nav li a{
+        text-align: center;
+    }
+    .navbar-nav a{
+        text-align: center;
+    }
+    .navbar-nav li h6{
+        text-align: center;
+    }   
+
+    .navbar-nav li a:hover{
+        background-color: rgb(121, 120, 120);
+    }   
+}
+
+
+/*   Message pop-up  */
+
+
+.alert{
+    margin-top: 10px;
+}
+
+
+/*   Cliente/Trabajos/Stock/Turnos Forms  */
+
+
+#forms_trabajos, #form_cliente, #form_stock1{
+    justify-content: center;
+    margin-top: 10px;  
+}
+
+#form_stock2{
+    margin-top: 84px;
+}
+
+#form_turnos{
+    justify-content:left;
+    margin-top: 60px;
+}
+
+#form_resumen{
+    margin-top: 50px;
+    justify-content: center;
+}
+
+#form_empleados{
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+@media
+only screen and (max-width: 700px),
+(min-device-width: 700px) and (max-device-width: 1024px)  {
+    #form_producto{
+        margin-top: 10%;
+    }
+    #form_operacion{
+        margin-top: 5%;
+    }
+}
+
+
+/*   Botones Grandes   */
+
+
+.btn{
+    width: 100%;
+    background-color:rgba(144, 80, 153, 0.726);
+    font-family: 'Righteous', cursive;
+}
+
+.btn:hover{
+    background-color:rgb(144, 80, 153);
+}
+
+#boton_trabajos{
+    margin-top: 15px;
+}
+
+
+/*   Tabla Clientes/Stock   */
+
+
+table{
+    margin-top: 30px;
+    
+}
+
+thead, .total{
+    font-size: 23px;
+    -webkit-text-stroke: 1px rgb(0, 0, 0);
+    color: rgb(243, 240, 233);
+}
+
+tbody{
+    font-size: 19px;
+    color: rgb(255, 255, 255);
+    -webkit-text-stroke: 0.8px rgb(86, 31, 131);
+    font-weight: 700;
+}
+
+#trash_icon{
+    height: 18px;
+    width: 15px; 
+}
+
+#tabla_stock{
+    justify-content: center;
+    width: 600px;
+}
+
+
+/*   Tabla Turnos   */
+
+
+.my-custom-scrollbar {
+    position: relative;
+    height: 400px;
+    overflow: auto;
+}
+.table-wrapper-scroll-y {
+    display: block;
+}
+
+::-webkit-scrollbar {
+    display: none;  /* Ocultar scroll */
+}
+
+@media
+only screen and (max-width: 700px),
+(min-device-width: 700px) and (max-device-width: 1024px)  {
+    
+	/* Force table to not be like tables anymore */
+	table, thead, tbody, th, td, tr { 
+		display: block;
+	}
+	
+	/* Hide table headers (but not display: none;, for accessibility) */
+	thead tr { 
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+	}
+	
+	td { 
+		border-bottom: 1px solid #eee; 
+	}
+
+    .tabla_resumen{
+        display:grid; 
+        position:absolute; 
+        top: auto;
+		left: auto;
+        border-bottom: none;
+    } 
+
+    .tabla_resumen1{
+        display:inline;
+        margin-left: 120px; 
+        position:fixed;
+        border-bottom: none;
+        font-size: 23px;
+        
+    }
+
+
+}
+
+.fecha_turnos label{
+    margin-top: -25px;
+    font-size: 12px;
+}
+
+.browser-default{
+    background-color: transparent;
+    border:none;
+    outline: none;
+    font-family: 'Righteous', cursive;
+    font-size: 16px;
+    border-radius: 0px;
+    width: 90%;
+    margin-left: 10%;
+    color:white;
+    position: relative;
+}
+
+.browser-default:hover{
+    outline: none;
+}
+
+.browser-default:focus{
+    outline: none;
+}
+
+select option{
+    background-color: rgb(205, 223, 228);
+    color: rgb(144, 80, 153);
+}
+
+.browser-default {
+    display: none; /*hide original SELECT element: */
+}
+
+#empleado{
+    margin-left: -1%;
+}

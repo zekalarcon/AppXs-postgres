@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{% load materializecss %}
+{% block content %}
+
+{% if messages %}
+    {% for message in messages %}
+        
+        <div class="alert alert-{{ message.tags }}">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div> 
+                  
+    {% endfor %}
+{% endif %}
+
+<div class="row" id='form_stock1'>
+    <div class="col-md-3">
+        <form action="." method="POST" autocomplete="off">
+            {% csrf_token %}
+            
+            <div>
+                {{ agregar.producto|materializecss:'icon=local_mall' }}
+            </div>
+            <div>
+                {{ agregar.cantidad|materializecss:'icon=add_to_photos' }}
+            </div>
+
+            <button class="btn" type="submit" id='boton_trabajos'>
+                Agregar stock
+            </button>
+        </form>
+    </div>
+    <div class="col-md-5" id='form_stock2'>
+        <form action="." method="POST" autocomplete="off">
+            {% csrf_token %}
+
+            <div>
+                {{ consulta.producto_consulta|materializecss:'icon=local_mall' }}
+            </div>
+
+            <button class="btn" type="submit" id='boton_trabajos'>
+                Consultar stock
+            </button>
+        </form>
+    </div>
+</div>  
+
+{% if stock %}
+<div class="row" id='tabla_stock'>
+    <table class="responsive-table-sm">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Producto</th>
+                <th>Cantidad</th>		
+            </tr>
+        </thead>
+        <body>
+            {% for k,v in stock %}
+            
+            <tr>
+                <td>          
+                    <a href="{% url 'delete_stock' k %}"><img src="/static/images/trash.png" id='trash_icon'></a>      
+                </td>
+                <td>{{ k }}</td>
+                <td>{{ v }}</td>
+            </tr>
+            
+            {% endfor %}
+        </body>
+    </table>  
+</div>
+{% endif %}
+{% if producto %}
+<div class="row" id='tabla_stock'>
+    <table class="responsive-table-sm">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Producto</th>
+                <th>Cantidad</th>		
+            </tr>
+        </thead>
+        <body>
+            <tr>
+                <td>          
+                    <a href="{% url 'delete_stock' producto %}"><img src="/static/images/trash.png" id='trash_icon'></a>      
+                </td>
+                <td>{{ producto }}</td>
+                <td>{{ cantidad }}</td>
+            </tr>
+        </body>
+    </table>  
+</div>
+{% endif %}
+{% endblock %}

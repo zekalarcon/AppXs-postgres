@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+{% load materializecss %}
+{% block content %}
+
+{% if messages %}
+    {% for message in messages %}
+        
+            <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div> 
+                  
+    {% endfor %}
+{% endif %}
+
+<div class="row" id='form_empleados'>
+    <div class="col-md-4">
+        <form action="." method="POST" autocomplete="off">
+            {% csrf_token %}
+
+            <div>
+                {{ empleados_form.nombre|materializecss:'icon=people' }}
+            </div>
+            <div>
+                {{ empleados_form.telefono|materializecss:'icon=phone_android' }}
+            </div>
+            <div>
+                {{ empleados_form.direccion|materializecss:'icon=home' }}
+            </div>
+
+            <button class="btn" type="submit" id='boton_trabajos'>
+                Crear empleado
+            </button>
+        </form>
+    </div>
+    <div class="table-wrapper-scroll-y my-custom-scrollbar col-md-8">
+    <table class="responsive-table-sm">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Fecha</th>
+                <th>Nombre</th>
+                <th>Telefono</th>
+                <th>Direccion</th>
+            </tr>
+        </thead>
+        <body>
+            {% for empleado in empleados %}
+            <tr>
+                <td>          
+                    <a href="{% url 'delete_empleados' empleado.id %}"><img src="/static/images/trash.png" id='trash_icon'></a>      
+                </td>
+                <td>{{ empleado.fecha }}</td>
+                <td>{{ empleado.nombre }}</td>
+                <td>{{ empleado.telefono }}</td>
+                <td>{{ empleado.direccion }}</td>
+            </tr>
+            {% endfor %}
+        </body>    
+    </table>
+    </div>
+</div>
+
+<div class="row" id='form_empleados_info'>
+    <div class="col-md-4">
+        <form action="." method="POST" autocomplete="off">
+            {% csrf_token %}
+
+            <div>
+                {{ info_form.fecha_inicio|materializecss:'icon=today' }}
+            </div>
+            <div>
+                {{ info_form.fecha_fin|materializecss:'icon=today' }}
+            </div>
+            <div>
+                {{ info_form.nombre_consulta|materializecss:'icon=people' }}
+            </div>
+            
+            <button class="btn" type="submit" id='boton_trabajos'>
+                Info empleado
+            </button>
+        </form>
+    </div>
+    <div class="table-wrapper-scroll-y my-custom-scrollbar col-md-8">
+    <table class="responsive-table-sm">
+        <thead>
+            <tr>
+                <th>Trabajo</th>
+                <th>Cantidad</th>
+                <th>Subtotal</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in items_empleado %}
+            <tr>
+                <td>{{ item.0 }}</td>
+                <td>{{ item.1 }}</td>   
+                <td>${{ item.2 }}</td> 
+            </tr>
+            {% endfor %}
+            <tr>
+                <th class="total">TOTAL</th>
+                <td></td>
+                <td class="total">${{ total }}</td>
+            </tr>
+        </tbody>    
+    </table>
+    </div>
+</div>
+{% endblock %}
