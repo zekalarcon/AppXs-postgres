@@ -39,7 +39,7 @@ def empleados_view(request):
                 
             elif info_form.is_valid():
             
-                nombre = info_form.cleaned_data['nombre_consulta'].upper()
+                nombre = info_form.cleaned_data['nombre_consulta']
                 inicio = info_form.cleaned_data['fecha_inicio'] - datetime.timedelta(days=1)
                 fin    = info_form.cleaned_data['fecha_fin'] + datetime.timedelta(days=1)
 

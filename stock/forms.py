@@ -14,7 +14,7 @@ class AgregarStockForm(forms.ModelForm):
 
 
 class ConsultaStockForm(forms.ModelForm):
-    producto_consulta   = forms.CharField(label='Nombre producto o TODO para stock completo', required=True, widget=forms.TextInput(attrs={'pattern':'^[a-zA-Z0-9.]+*$', 'title':'Solo letras, numeros y .' }))
+    producto_consulta   = forms.CharField(label='Nombre producto', required=True, widget=forms.TextInput(attrs={'pattern':'^[a-zA-Z0-9.]+*$', 'title':'Solo letras, numeros y .' }))
 
     class Meta:
         model  = Stock

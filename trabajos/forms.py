@@ -16,7 +16,7 @@ trabajos = (('ALISADO', 'Alisado'),
 
 class TrabajosForm(forms.ModelForm):
     trabajo  = forms.ChoiceField(choices=trabajos, label='', widget=forms.Select(attrs={'class': 'browser-default'}))
-    nombre   = forms.CharField(label='Nombre cliente', required=True, widget=forms.TextInput(attrs={'pattern':'^[A-Za-z]+$', 'title':'Solo letras'}))
+    nombre   = forms.CharField(label='Nombre cliente', required=True, widget=forms.TextInput(attrs={'pattern':'^[A-Za-z\s]+$', 'title':'Solo letras'}))
     telefono = forms.IntegerField(label='Telefono cliente', widget=forms.TextInput(attrs={'title':'Solo numeros y sin espacios'}))
     precio   = forms.DecimalField(label='Precio', required=True, widget=forms.TextInput(attrs={'pattern':'^[0-9]+$', 'title':'Solo numeros, hasta 99999'}))
     empleado = forms.ModelChoiceField(queryset=Empleados.objects, label='', empty_label="Empleado", widget=forms.Select(attrs={'class': 'browser-default'}))
@@ -35,7 +35,7 @@ class TrabajosForm(forms.ModelForm):
 
 
 class StockForm(forms.ModelForm):
-    producto   = forms.ModelChoiceField(queryset=Stock.objects.filter(accion='INGRESO'), label='', empty_label="Producto", widget=forms.Select(attrs={'class': 'browser-default'}))
+    producto   = forms.ModelChoiceField(queryset=Stock.objects.filter(accion='INGRESO').order_by('producto'), label='', empty_label="Producto", widget=forms.Select(attrs={'class': 'browser-default'}))
     cantidad   = forms.IntegerField(label='Cantidad', required=True, widget=forms.TextInput(attrs={'pattern':'^[0-9]+$', 'title':'Solo numeros'}))
 
     class Meta:

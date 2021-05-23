@@ -30,72 +30,146 @@
 		</form>
 	</div>
 </div>
+
+
+{% if clientes %}
+
+	<div class="table-wrapper-scroll-y my-custom-scrollbar">
+		<table class="responsive-table-sm">
+			<thead>
+				<tr>
+					<th></th>
+					<th>Fecha</th>
+					<th>Trabajo</th>
+					<th>Nombre</th>
+					<th>Telefono</th>
+					<th>Precio</th>
+					<th>Empleado</th>
+					<th>Producto</th>
+					<th>Cantidad</th>	
+				</tr>
+			</thead>
+	
+			<tbody>
+				{% for data in clientes %}
+				<tr>
+	
+					{% if data.id in dic %} 
+	
+						{% for item in productos %}
+							{% if item.0 == data.id %}
+								
+								<td rowspan="{{ item.1|length|add:1  }}">          
+									<a href="{% url 'delete_cliente' data.id  %}"><img src="/static/images/trash.png" id='trash_icon'></a>      
+								</td>
+								<td rowspan="{{ item.1|length|add:1  }}">{{ data.fecha }}</td>
+								<td rowspan="{{ item.1|length|add:1  }}">{{ data.trabajo }}</td>
+								<td rowspan="{{ item.1|length|add:1  }}">{{ data.nombre }}</td>
+								<td rowspan="{{ item.1|length|add:1  }}">{{ data.telefono }}</td>
+								<td rowspan="{{ item.1|length|add:1  }}">{{ data.precio }}</td>
+								<td rowspan="{{ item.1|length|add:1  }}">{{ data.empleado }}</td>
+								
+								{% for producto, cantidad in item.1.items %}
+									
+									<tr>
+									<td>{{producto}}</td>
+									<td>{{cantidad}}</td>
+									</tr>
+									
+								{% endfor %}
+	
+							{% endif%}
+						{% endfor%}
+	
+					{% else%}	
+	
+						<td>          
+							<a href="{% url 'delete_cliente' data.id %}"><img src="/static/images/trash.png" id='trash_icon'></a>      
+						</td>
+						<td>{{ data.fecha }}</td>
+						<td>{{ data.trabajo }}</td>
+						<td>{{ data.nombre }}</td>
+						<td>{{ data.telefono }}</td>
+						<td>{{ data.precio }}</td>
+						<td>{{ data.empleado }}</td>
+						
+					{% endif %}
+	
+				</tr>
+				{% endfor %}  
+			</tbody>
+		</table>
+	</div>
+
+{% endif %}
+
 {% if trabajos %}
 
-<table class="responsive-table-sm">
-    <thead>
-		<tr>
-			<th></th>
-			<th>Fecha</th>
-			<th>Trabajo</th>
-			<th>Nombre</th>
-			<th>Telefono</th>
-			<th>Precio</th>
-			<th>Empleado</th>
-			<th>Producto</th>
-			<th>Cantidad</th>	
-		</tr>
-    </thead>
+<div class="table-wrapper-scroll-y my-custom-scrollbar">
+	<table class="responsive-table-sm">
+		<thead>
+			<tr>
+				<th></th>
+				<th>Fecha</th>
+				<th>Trabajo</th>
+				<th>Nombre</th>
+				<th>Telefono</th>
+				<th>Precio</th>
+				<th>Empleado</th>
+				<th>Producto</th>
+				<th>Cantidad</th>	
+			</tr>
+		</thead>
 
-    <tbody>
-        {% for data in trabajos %}
-      	<tr>
+		<tbody>
+			{% for data in trabajos %}
+			<tr>
 
-			{% if data.id in dic %} 
+				{% if data.id in dic %} 
 
-				{% for item in productos %}
-					{% if item.0 == data.id %}
-						
-						<td rowspan="{{ item.1|length|add:1  }}">          
-							<a href="{% url 'delete_cliente' data.id  %}"><img src="/static/images/trash.png" id='trash_icon'></a>      
-						</td>
-						<td rowspan="{{ item.1|length|add:1  }}">{{ data.fecha }}</td>
-						<td rowspan="{{ item.1|length|add:1  }}">{{ data.trabajo }}</td>
-						<td rowspan="{{ item.1|length|add:1  }}">{{ data.nombre }}</td>
-						<td rowspan="{{ item.1|length|add:1  }}">{{ data.telefono }}</td>
-						<td rowspan="{{ item.1|length|add:1  }}">{{ data.precio }}</td>
-						<td rowspan="{{ item.1|length|add:1  }}">{{ data.empleado }}</td>
-						
-						{% for producto, cantidad in item.1.items %}
+					{% for item in productos %}
+						{% if item.0 == data.id %}
 							
-							<tr>
-							<td>{{producto}}</td>
-							<td>{{cantidad}}</td>
-							</tr>
+							<td rowspan="{{ item.1|length|add:1  }}">          
+								<a href="{% url 'delete_cliente' data.id  %}"><img src="/static/images/trash.png" id='trash_icon'></a>      
+							</td>
+							<td rowspan="{{ item.1|length|add:1  }}">{{ data.fecha }}</td>
+							<td rowspan="{{ item.1|length|add:1  }}">{{ data.trabajo }}</td>
+							<td rowspan="{{ item.1|length|add:1  }}">{{ data.nombre }}</td>
+							<td rowspan="{{ item.1|length|add:1  }}">{{ data.telefono }}</td>
+							<td rowspan="{{ item.1|length|add:1  }}">{{ data.precio }}</td>
+							<td rowspan="{{ item.1|length|add:1  }}">{{ data.empleado }}</td>
 							
-						{% endfor %}
+							{% for producto, cantidad in item.1.items %}
+								
+								<tr>
+								<td>{{producto}}</td>
+								<td>{{cantidad}}</td>
+								</tr>
+								
+							{% endfor %}
 
-					{% endif%}
-				{% endfor%}
+						{% endif%}
+					{% endfor%}
 
-			{% else%}	
+				{% else%}	
 
-				<td>          
-					<a href="{% url 'delete_cliente' data.id %}"><img src="/static/images/trash.png" id='trash_icon'></a>      
-				</td>
-				<td>{{ data.fecha }}</td>
-				<td>{{ data.trabajo }}</td>
-				<td>{{ data.nombre }}</td>
-				<td>{{ data.telefono }}</td>
-				<td>{{ data.precio }}</td>
-				<td>{{ data.empleado }}</td>
-				
-			{% endif %}
+					<td>          
+						<a href="{% url 'delete_cliente' data.id %}"><img src="/static/images/trash.png" id='trash_icon'></a>      
+					</td>
+					<td>{{ data.fecha }}</td>
+					<td>{{ data.trabajo }}</td>
+					<td>{{ data.nombre }}</td>
+					<td>{{ data.telefono }}</td>
+					<td>{{ data.precio }}</td>
+					<td>{{ data.empleado }}</td>
+					
+				{% endif %}
 
-      	</tr>
-	  	{% endfor %}  
-    </tbody>
-</table>
-
+			</tr>
+			{% endfor %}  
+		</tbody>
+	</table>
+</div>
 {% endif %}
 {% endblock %}

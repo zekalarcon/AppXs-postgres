@@ -10,9 +10,30 @@ def cliente_view(request):
     cliente_form = ClienteForm(request.POST or None)
 
     if request.method == "GET":
+        
+        trabajos = Trabajos.objects.order_by('fecha').values().all()
+
+        dic = defaultdict(dict)
+
+        for data in trabajos:
+            productos = Stock.objects.filter(trabajo_id=data['id']).values().all()
+            
+            
+            for i in productos:
+
+                producto = i['producto']
+                cantidad = i['cantidad']
+                
+                dic[i['trabajo_id_id']][producto] = cantidad
+            
+        
+        dic_items = dic.items()
 
         context = {
-                "cliente": cliente_form,   
+                "cliente" : cliente_form, 
+                "clientes"  : trabajos,
+                "productos" : dic_items,
+                'dic'       : dic 
                 }
 
         return render(request, "cliente/cliente.html", context)

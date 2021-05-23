@@ -20,7 +20,7 @@ def login_view(request):
                 return redirect('trabajos')
 
             else:
-                messages.info(request, 'Email o contraseña incorrecta')
+                messages.info(request, 'Usuario o contraseña incorrecta')
             
 
 

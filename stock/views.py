@@ -53,23 +53,27 @@ def stock_view(request):
 
         if request.method == "POST":
 
-            if agregar_form.is_valid():
+            if request.method == "POST":
 
-                data = Stock(accion='INGRESO', trabajo_id=None)
-                agregar_form = AgregarStockForm(request.POST, instance=data)
-                agregar_form.save()
+                if agregar_form.is_valid():
+                    
+                    try:
+                        producto = agregar_form.cleaned_data['producto'].upper()
+                        cant     = agregar_form.cleaned_data['cantidad']
+                        produ    = Stock.objects.filter(producto=producto).filter(accion='INGRESO').values()
+                        
+                        Stock.objects.filter(producto=producto).filter(accion='INGRESO').update(cantidad= produ[0]['cantidad'] + cant)
+                    
+                    except:    
 
-                messages.success(request, f'Producto agregado con exito aL STOCK')
+                        data = Stock(accion='INGRESO', trabajo_id=None)
+                        agregar_form = AgregarStockForm(request.POST, instance=data)
+                        agregar_form.save()
 
-                agregar_form  = AgregarStockForm()
-                consulta_form = ConsultaStockForm()
+                    messages.success(request, f'Producto agregado con exito aL STOCK')
+                
 
-                context = {
-                            "agregar" : agregar_form,
-                            "consulta": consulta_form
-                        }
-
-                return redirect('stock')
+                    return redirect('stock')
 
             else:
 
