@@ -260,6 +260,11 @@ only screen and (max-width: 700px),
         
     }
 
+    .navbar{
+        height:100px;
+        
+    }
+
 
 }
 
